@@ -1,2 +1,20 @@
 // For information on how to create your own theme, please see:
 // http://ionicframework.com/docs/theming/
+
+:root {
+	--ion-color-terra: #769e1e;
+	--ion-color-terra-rgb: 118,158,30;
+	--ion-color-terra-contrast: #000000;
+	--ion-color-terra-contrast-rgb: 0,0,0;
+	--ion-color-terra-shade: #688b1a;
+	--ion-color-terra-tint: #84a835;
+}
+
+.ion-color-terra {
+	--ion-color-base: var(--ion-color-terra);
+	--ion-color-base-rgb: var(--ion-color-terra-rgb);
+	--ion-color-contrast: var(--ion-color-terra-contrast);
+	--ion-color-contrast-rgb: var(--ion-color-terra-contrast-rgb);
+	--ion-color-shade: var(--ion-color-terra-shade);
+	--ion-color-tint: var(--ion-color-terra-tint);
+}
