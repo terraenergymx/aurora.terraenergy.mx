@@ -1,0 +1,7 @@
+{
+  "name": "front-aurora",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}
