@@ -1,0 +1,29 @@
+ion-content {
+  --background: linear-gradient(to bottom, #b6e13d, #769e1e);
+}
+
+.logo {
+  width: 256px;
+  height: 256px;
+  object-fit: cover;
+  margin-top: 10%;
+}
+
+.input-fill-outline.sc-ion-input-md-h {
+  --border-color: #ffffff;
+}
+
+.rectangles {
+  display: flex;
+  justify-content: space-between;
+  padding-right: 16px;
+  padding-left: 16px;
+  margin-top: 32px;
+  margin-bottom: 32px;
+}
+
+.rectangle {
+  width: 48%;
+  height: 0.75px;
+  background-color: #ffffff;
+}
