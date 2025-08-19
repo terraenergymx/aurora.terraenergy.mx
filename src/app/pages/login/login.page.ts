@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { FormsModule, NgForm } from '@angular/forms';
 import {
   IonTitle,
   IonContent,
@@ -16,7 +16,6 @@ import {
   styleUrls: ['./login.page.scss'],
   standalone: true,
   imports: [
-    RouterLink,
     IonTitle,
     IonContent,
     IonGrid,
@@ -24,10 +23,18 @@ import {
     IonCol,
     IonInput,
     IonButton,
+    FormsModule,
   ],
 })
 export class LoginPage implements OnInit {
+  public email!: string;
+  public password!: string;
+
   constructor() {}
 
   ngOnInit() {}
+
+  login(loginForm: NgForm) {
+    console.log('Login form submitted:', loginForm.value);
+  }
 }
