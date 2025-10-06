@@ -2,6 +2,14 @@ ion-content {
   --background: linear-gradient(to bottom, #b6e13d, #769e1e);
 }
 
+ion-input.ion-valid {
+  --highlight-color: var(--ion-color-success-terra);
+}
+
+ion-input.ion-invalid {
+  --highlight-color: var(--ion-color-danger-terra);
+}
+
 .logo {
   width: 256px;
   height: 256px;
