@@ -1,0 +1,60 @@
+# Nombre del workflow
+name: Deploy PWA to AWS S3
+
+# Disparadores: se ejecuta en push a 'main' y 'develop'
+on:
+  push:
+    branches:
+      - main
+      - develop
+
+jobs:
+  deploy_pwa:
+    runs-on: ubuntu-latest
+    steps:
+      # 1. Descarga código del repositorio
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # 2. Configura el entorno de Node.js
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      # 3. Instala las dependencias
+      - name: Install dependencies
+        run: npm ci
+
+      # 4. Compila el código de la PWA
+      - name: Build PWA code
+        run: npm run build
+
+      # 5. Configura las credenciales de AWS
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      # 6. Despliega en el bucket de S3 correcto según la rama
+      - name: Deploy to S3 based on branch
+        run: |
+          # Determina el bucket correcto según la rama
+          if [[ $GITHUB_REF == 'refs/heads/main' ]]; then
+            echo "Setting up PRODUCTION environment"
+            S3_BUCKET="${{ secrets.AURORA_S3_BUCKET_PRODUCTION }}"
+          elif [[ $GITHUB_REF == 'refs/heads/develop' ]]; then
+            echo "Setting up STAGING environment"
+            S3_BUCKET="${{ secrets.AURORA_S3_BUCKET_STAGING }}"
+          fi
+
+          echo "Deploying to S3 Bucket: $S3_BUCKET"
+
+          # Sincroniza el directorio de www con el bucket de S3
+          # El comando 'sync' sube los archivos nuevos/modificados y borra los que ya no existen en la carpeta de www
+          # Reemplaza './www' si la carpeta de compilación se llama diferente (ej. './dist')
+          aws s3 sync ./www s3://$S3_BUCKET --delete
+          
+          echo "Deployment finished successfully! 🚀"
